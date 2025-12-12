@@ -1,61 +1,127 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <title>Assignment Title</title>
-  <link rel="stylesheet" href="style.css">
-
-  <!-- Navigation Bar -->
-  <header class="top-nav">
-    <div class="logo">HAOFEI HAN</div>
-
-    <nav class="nav-links">
-      <a href="index.html">HOME</a>
-      <a href="about.html">ABOUT ME</a>
-      <!-- <a href="#">PORTFOLIO</a> -->
-    </nav>
-  </header>
-  
-  <!-- p5.js CDN -->
+  <meta charset="UTF-8" />
+  <title>Assignment 1</title>
+  <link rel="stylesheet" href="assignment.css" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Figtree:wght@400;600&display=swap" rel="stylesheet" />
   <script src="https://cdnjs.cloudflare.com/ajax/libs/p5.js/1.6.0/p5.min.js"></script>
 </head>
-<body>
 
-  <header class="hero">
-    <h1>Assignment Title</h1>
-    <nav>
-      <a href="index.html">Home</a>
-      <a href="about.html">About Me</a>
+<body>
+  <!-- Top Navigation -->
+  <header class="top-nav">
+    <div class="logo">HAOFEI HAN</div>
+    <nav class="nav-links">
+      <a href="index.html#home">HOME</a>
+      <a href="index.html#about">ABOUT ME</a>
+      <a href="index.html#projects" class="active">PROJECTS</a>
     </nav>
   </header>
 
-  <main class="grid">
+  <main>
+  <div class="assignment-block">
+    <h1>Assignment 2</h1>
 
-    <!-- Project Description -->
-    <section class="card">
-      <h2>Project Description</h2>
-      <p>
-       Put your project reflection here. 
-      </p>
-    </section>
+    <!-- Sketch -->
+    <div id="sketch-container"></div>
 
-    <!-- p5 Sketch -->
-    <section class="card">
-      <h2>This is where your sketch will go.</h2>
-      <div id="sketch-container"></div>
-    </section>
+    <h2 class="reflection-title">Reflection</h2>
+    <div class="reflection">
+      1. Design Process
 
-  </main>
+The inspiration for this project came from a mug I use in my daily life. The mug is brown, and its handle is designed to look like a piece of cheese. This playful design sparked an idea in my mind: what if cheese had facial features—wouldn’t that be cute? So I decided to make a “cheese face” the central theme of this project.
+
+During the sketching phase, I used Figma, a simple and efficient design tool. In Figma, I created two versions of the cheese face: one in its smallest form and one in its largest. To make the design more vivid, I used a yellow as the base color and added several darker yellow circles to simulate the holes in the cheese. Then, I placed the eyes and mouth to give the cheese a character-like appearance.
+
+During the coding process, I found that some shapes couldn't be implemented exactly as I had sketched. For example, in Figma, I used rounded corners to make the edges of the triangle softer and cuter, but the triangle() function in p5.js does not support rounded corners. For the sake of completeness, I eventually decided to give up on that feature.
+
+I chose to scale the cheese face based on the mouse position, using the map() function to control the minimum and maximum scale values. The cheese face's gaze also follows the mouse cursor. When the mouse is clicked, the shape of the eyes changes randomly. Finally, pressing the ‘b’ key triggers a random background color.
+
+2. Discovered
+
+Through this assignment, I discovered that code can be used to draw a wide variety of complex patterns. Even when certain functions cannot be implemented directly, there are always alternative methods to achieve similar results. I hope to learn how to create even more diverse visuals in the future.
+
+In addition, this project helped me practice combining visuals with mouse and keyboard interactions. This greatly enhances the sense of interaction between the user and the code, making coding feel less like dry letters and numbers, and more like something dynamic and engaging. At the same time, this was a very detailed task, requiring repeated adjustments of parameters to achieve the best result. 
+    </div>
+  </div>
+</main>
 
   <footer>
-    <p>© 2025 My Portfolio</p>
+    <p>© Haofei Han 2025</p>
   </footer>
 
+  <!-- p5.js Sketch -->
+<script>
+let backgroundC;
+let eyeCorner = 12;
 
-  <!-- p5.js SKETCH SCRIPT -->
-  <script>
-    // Your p5.js code will go here. 
-  </script>
+function setup() {
+  const canvas = createCanvas(400, 400);
+  canvas.parent('sketch-container');
+  backgroundC = color(230, 240, 255);
+}
 
+function draw() {
+  background(backgroundC);
+
+  let edgeX = constrain(mouseX, 0, width);
+  let edgeY = constrain(mouseY, 0, height);
+
+  let scaleFace = map(edgeX + edgeY, 0, width + height, 0.2, 1.5);
+
+  push();
+  translate(width / 2, height / 2);
+  scale(scaleFace);
+
+  let side = 200;
+  let h = (sqrt(3) / 2) * side;
+
+  fill(255, 230, 128);
+  stroke(200, 160, 60);
+  strokeWeight(3);
+
+  triangle(
+    -side / 2, h / 2,
+     side / 2, h / 2,
+     0, -h / 2
+  );
+
+  noStroke();
+  fill(255, 200, 100);
+  ellipse(-40, 20, 15, 15);
+  ellipse(20, 40, 12, 12);
+  ellipse(-10, -10, 18, 18);
+  ellipse(30, -20, 10, 10);
+
+  fill(249, 244, 220);
+  rectMode(CENTER);
+  rect(-30, 0, 25, 25, eyeCorner);
+  rect(30, 0, 25, 25, eyeCorner);
+
+  fill(0);
+  let pupilOffsetX = map(edgeX, 0, width, -5, 5);
+  let pupilOffsetY = map(edgeY, 0, height, -5, 5);
+  ellipse(-30 + pupilOffsetX, pupilOffsetY, 10, 10);
+  ellipse(30 + pupilOffsetX, pupilOffsetY, 10, 10);
+
+  fill(200, 50, 50);
+  arc(0, 40, 40, 25, 0, PI, CHORD);
+
+  pop();
+}
+
+function keyPressed() {
+  if (key === 'b' || key === 'B') {
+    backgroundC = color(random(255), random(255), random(255));
+  }
+}
+
+function mousePressed() {
+  eyeCorner = random(2, 12);
+}
+</script>
 </body>
 </html>

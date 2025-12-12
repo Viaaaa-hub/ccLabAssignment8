@@ -1,61 +1,136 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <title>Assignment Title</title>
-  <link rel="stylesheet" href="style.css">
-
-  <!-- Navigation Bar -->
-  <header class="top-nav">
-    <div class="logo">HAOFEI HAN</div>
-
-    <nav class="nav-links">
-      <a href="index.html">HOME</a>
-      <a href="about.html">ABOUT ME</a>
-      <!-- <a href="#">PORTFOLIO</a> -->
-    </nav>
-  </header>
-  
-  <!-- p5.js CDN -->
+  <meta charset="UTF-8" />
+  <title>Assignment 1</title>
+  <link rel="stylesheet" href="assignment.css" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Figtree:wght@400;600&display=swap" rel="stylesheet" />
   <script src="https://cdnjs.cloudflare.com/ajax/libs/p5.js/1.6.0/p5.min.js"></script>
 </head>
-<body>
 
-  <header class="hero">
-    <h1>Assignment Title</h1>
-    <nav>
-      <a href="index.html">Home</a>
-      <a href="about.html">About Me</a>
+<body>
+  <!-- Top Navigation -->
+  <header class="top-nav">
+    <div class="logo">HAOFEI HAN</div>
+    <nav class="nav-links">
+      <a href="index.html#home">HOME</a>
+      <a href="index.html#about">ABOUT ME</a>
+      <a href="index.html#projects" class="active">PROJECTS</a>
     </nav>
   </header>
 
-  <main class="grid">
+  <main>
+  <div class="assignment-block">
+    <h1>Assignment 4</h1>
 
-    <!-- Project Description -->
-    <section class="card">
-      <h2>Project Description</h2>
-      <p>
-       Put your project reflection here. 
-      </p>
-    </section>
+    <!-- Sketch -->
+    <div id="sketch-container"></div>
 
-    <!-- p5 Sketch -->
-    <section class="card">
-      <h2>This is where your sketch will go.</h2>
-      <div id="sketch-container"></div>
-    </section>
+    <h2 class="reflection-title">Reflection</h2>
+    <div class="reflection">
+      Partners’ names：
+Lamisse Hamouda, Manahil Karim
 
-  </main>
+This week’s assignment was done in a group. Each of us designed a character with a head, body, and legs, then chose one part from each of the other two members’ designs to combine with selected parts of our own and create a new character. We all kept the heads from our own designs. I used Manahil’s design of body and Lamisse’s design of legs. Manahil designed a cute yellow guy with a party hat, Lamisse designed a gentel man in black suits. I designed a tomato girl in dress.
+
+Reflection：
+In this week’s assignment, I deepened my understanding of how to use functions, as well as arguments and parameters. With this approach, when I want to draw multiple identical shapes, I no longer need to repeat large blocks of code; I can simply call the function multiple times and change the parameters. This is very convenient and makes my code much cleaner.
+In addition, I ran into an interesting issue: because the body and head overlap, the body was covering the head. I quickly realized this was due to the call order inside draw()—I was calling the body function before the head, which produced an unexpected layer (z-order). After reordering the function calls, the problem was solved. 
+    </div>
+  </div>
+</main>
 
   <footer>
-    <p>© 2025 My Portfolio</p>
+    <p>© Haofei Han 2025</p>
   </footer>
 
+  <!-- p5.js Sketch -->
+<script>
+let pieces = [];      
+let positions = [];   
+let lastSecond = -1;
+let lastMinute = -1;
+let baseHue;
+let minuteColor;
+let shapeTheme;
+let minuteStep = 0;
 
-  <!-- p5.js SKETCH SCRIPT -->
-  <script>
-    // Your p5.js code will go here. 
-  </script>
+function setup() {
+  const canvas = createCanvas(400, 600);
+  canvas.parent('sketch-container');
+}
+function draw() {
+  background(220);
+  // drawHead(200,100);
+  drawBody(200,210);
+  drawLegs(150,300);
+  drawHead(200,100);
+}
 
+function drawHead(x,y){
+  push();
+  noStroke();
+  fill(231,128,102);
+  
+  //face
+  ellipse(x,y,105,75);
+  fill(251,196,196);
+  ellipse(x-30,y+15,20,10);
+  ellipse(x+30,y+15,20,10);
+  
+  //eyes
+  fill(0);
+  ellipse(x-20,y,12,12);
+  ellipse(x+20,y,12,12);
+  
+  //mouth
+  fill(253,220,163);
+  triangle(x-10,y+20,x+10,y+20,x,y+28);
+  
+  //hair
+  fill(97,130,91);
+  triangle(x-12,y-45,x-5,y-20,x-80,y-20);
+  triangle(x+12,y-45,x+5,y-20,x+80,y-20);
+  triangle(x-12,y-45,x+10,y-35,x-10,y-5);
+  triangle(x+12,y-45,x-10,y-35,x+10,y-10);
+  rect(x,y-48,10,20,10);
+  
+  pop();
+}
+
+function drawBody(x, y) {
+  fill(255, 255, 200);
+  // 双手
+  push();
+  translate(x+10, y+60);
+  rotate(radians(40));
+  rect(-100, 0, 22, 80, 8);
+  pop();
+
+  push();
+  translate(x-10, y+80);
+  rotate(radians(-40));
+  rect(100, 0, 22, 80, 8);
+  pop();
+  
+  // 身体
+  rectMode(CENTER);
+  rect(x, y, 100, 160, 60);
+}
+
+function drawLegs(x,y){
+  push();
+  fill(50);
+  rectMode(CORNER);
+  rect(x,y-10,100,25);
+  rect(x,y+15,22,100);
+  rect(x+78,y+15,22,100);
+  pop();
+}
+
+
+</script>
 </body>
 </html>

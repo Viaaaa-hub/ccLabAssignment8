@@ -2,73 +2,141 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8">
-  <title>Portfolio</title>
+  <title>Haofei Han Portfolio</title>
   <link rel="stylesheet" href="style.css">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Figtree:ital,wght@0,300..900;1,300..900&display=swap" rel="stylesheet">
 </head>
+
 <body>
 
-  <!-- Navigation Bar -->
+  <!-- Top Navigation -->
   <header class="top-nav">
     <div class="logo">HAOFEI HAN</div>
-
     <nav class="nav-links">
-      <a href="index.html">HOME</a>
-      <a href="about.html">ABOUT ME</a>
-      <!-- <a href="#">PORTFOLIO</a> -->
+      <a href="#home" class="nav-link active">HOME</a>
+      <a href="#about" class="nav-link">ABOUT ME</a>
+      <a href="#projects" class="nav-link">PROJECTS</a>
     </nav>
   </header>
 
-
-  <main>
-
-    <!-- ✔ 第一部分：Hero（你的图片盒子） -->
-    <div class="layout-width">
-      <section class="hero-box">
-        <h1>PORTFOLIO</h1>
-      </section>
+  <!-- Hero Section -->
+  <section id="home" class="hero-box">
+    <div class="hero-box-content">
+      <h1>PORTFOLIO</h1>
     </div>
+  </section>
 
+  <!-- About Section -->
+  <section id="about" class="about-section">
+    <div class="about-left">
+      <h2>About Me</h2>
+      <p class="Parsons">Parsons DT MFA</p>
+      <p>UI/UX Designer</p>
+      <p>User-centered Design</p>
+<p class="cell">
+  <img src="Phone.png" class="icon" alt="Phone"> 551-417-2328
+</p>
+<p class="email">
+  <img src="Mail.png" class="icon" alt="Email"> hanh963@newschool.edu
+</p>
 
-    <!-- ✔ 第二部分：四个虚线 Assignment 卡片 -->
-    <div class="layout-width">
-      <section class="project-list">
-
-        <a href="assignment1.html" class="project-card">
-          <h2>Assignment 1</h2>
-        </a>
-
-        <a href="assignment2.html" class="project-card">
-          <h2>Assignment 2</h2>
-        </a>
-
-        <a href="assignment3.html" class="project-card">
-          <h2>Assignment 3</h2>
-        </a>
-
-        <a href="assignment4.html" class="project-card">
-          <h2>Assignment 4</h2>
-        </a>
-
-        <a href="assignment4.html" class="project-card">
-          <h2>Assignment 5</h2>
-        </a>
-
-        <a href="assignment4.html" class="project-card">
-          <h2>Assignment 6</h2>
-        </a>
-
-        <a href="assignment4.html" class="project-card">
-          <h2>Assignment 7</h2>
-        </a>
-
-      </section>
     </div>
+    <div class="about-right">
+      <p>
+        Exploring <span class="highlight">user-centered</span> interactive design and how<br>
+        to enhance the empathy and usability of interactive<br>
+        design in complex or emotional scenarios.
+      </p>
+      <div class="purple-glow"></div>
+    </div>
+  </section>
 
-  </main>
+  <!-- Projects Section -->
+  <section id="projects" class="projects-section">
+  <h2>Projects</h2>
+  <div class="projects-grid">
+    <div class="project-card">
+      <h3>01.</h3>
+      <p>Assignment 1</p>
+      <a href="assignment1.html">
+        <img src="assignment1.png" alt="Assignment 1">
+      </a>
+    </div>
+    <div class="project-card">
+      <h3>02.</h3>
+      <p>Assignment 2</p>
+      <a href="assignment2.html">
+        <img src="assignment2.png" alt="Assignment 2">
+      </a>
+    </div>
+    <div class="project-card">
+      <h3>03.</h3>
+      <p>Assignment 3</p>
+      <a href="assignment3.html">
+        <img src="assignment3.png" alt="Assignment 3">
+      </a>
+    </div>
+    <div class="project-card">
+      <h3>04.</h3>
+      <p>Assignment 4</p>
+      <a href="assignment4.html">
+        <img src="assignment4.png" alt="Assignment 4">
+      </a>
+    </div>
+    <div class="project-card">
+      <h3>05.</h3>
+      <p>Assignment 5</p>
+      <a href="assignment5.html">
+        <img src="assignment5.png" alt="Assignment 5">
+      </a>
+    </div>
+    <div class="project-card">
+      <h3>06.</h3>
+      <p>Assignment 6</p>
+      <a href="assignment6.html">
+        <img src="assignment6.png" alt="Assignment 6">
+      </a>
+    </div>
+    <div class="project-card">
+      <h3>07.</h3>
+      <p>Assignment 7</p>
+      <a href="assignment7.html">
+        <img src="assignment7.png" alt="Assignment 7">
+      </a>
+    </div>
+  </div>
+</section>
 
+  <!-- Footer -->
   <footer>
-    <p>© 2025 Your Name</p>
+    <p>© Haofei Han 2025</p>
   </footer>
+
+  <!-- ✅ ScrollSpy JS：一定要放在 body 最後 -->
+  <script>
+    const navLinks = document.querySelectorAll('.nav-link');
+    const sections = document.querySelectorAll('section');
+
+    window.addEventListener('scroll', () => {
+      let current = '';
+
+      sections.forEach(section => {
+        const sectionTop = section.offsetTop - 120; // nav 高度補償
+        if (window.scrollY >= sectionTop) {
+          current = section.getAttribute('id');
+        }
+      });
+
+      navLinks.forEach(link => {
+        link.classList.remove('active');
+        if (link.getAttribute('href') === `#${current}`) {
+          link.classList.add('active');
+        }
+      });
+    });
+  </script>
 
 </body>
 </html>

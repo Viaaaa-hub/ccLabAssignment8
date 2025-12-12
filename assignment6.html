@@ -1,61 +1,140 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <title>Assignment Title</title>
-  <link rel="stylesheet" href="style.css">
-
-  <!-- Navigation Bar -->
-  <header class="top-nav">
-    <div class="logo">HAOFEI HAN</div>
-
-    <nav class="nav-links">
-      <a href="index.html">HOME</a>
-      <a href="about.html">ABOUT ME</a>
-      <!-- <a href="#">PORTFOLIO</a> -->
-    </nav>
-  </header>
-  
-  <!-- p5.js CDN -->
+  <meta charset="UTF-8" />
+  <title>Assignment 1</title>
+  <link rel="stylesheet" href="assignment.css" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Figtree:wght@400;600&display=swap" rel="stylesheet" />
   <script src="https://cdnjs.cloudflare.com/ajax/libs/p5.js/1.6.0/p5.min.js"></script>
 </head>
-<body>
 
-  <header class="hero">
-    <h1>Assignment Title</h1>
-    <nav>
-      <a href="index.html">Home</a>
-      <a href="about.html">About Me</a>
+<body>
+  <!-- Top Navigation -->
+  <header class="top-nav">
+    <div class="logo">HAOFEI HAN</div>
+    <nav class="nav-links">
+      <a href="index.html#home">HOME</a>
+      <a href="index.html#about">ABOUT ME</a>
+      <a href="index.html#projects" class="active">PROJECTS</a>
     </nav>
   </header>
 
-  <main class="grid">
+  <main>
+  <div class="assignment-block">
+    <h1>Assignment 6</h1>
 
-    <!-- Project Description -->
-    <section class="card">
-      <h2>Project Description</h2>
-      <p>
-       Put your project reflection here. 
-      </p>
-    </section>
+    <!-- Sketch -->
+    <div id="sketch-container"></div>
 
-    <!-- p5 Sketch -->
-    <section class="card">
-      <h2>This is where your sketch will go.</h2>
-      <div id="sketch-container"></div>
-    </section>
+    <h2 class="reflection-title">Reflection</h2>
+    <div class="reflection">
+      For this project, I titled my data portrait Sleep Time Dream Dot. It visualizes my sleep patterns over the course of a week, focusing specifically on the duration of my sleep each night. In the bar chart, each column represents a single day, starting from Friday, which marks the beginning of my recording. The height of each bar and the density of the star, like dots correspond to the length of my sleep, the longer I slept, the taller the bar and the denser the stars. The colors of the dots blend shades of blue, purple, and pink, creating a soft gradient that resembles the night sky and helps make the visualization more vivid and expressive. The theme of the starry sky connects closely with the idea of sleep, and I found it fascinating to use this imagery to represent something as ordinary yet personal as my sleeping hours.
 
-  </main>
+My data portrait is composed of seven bars forming a bar chart, with each column representing one day of the week, from last Friday to this Thursday. Each bar is labeled with a word below to indicate the corresponding day. Viewers can understand my sleeping pattern by observing the height of each bar and the density of the dots within it. The taller and denser a bar is, the longer I slept that day. Conversely, shorter and sparser bars represent shorter sleep durations. In addition, I gave each bar a slightly different color tone, so the data for each day can be distinguished more clearly. I also added a flickering effect to the dots, making them breathe gently like stars in the night sky.
+
+During the design stage, I first thought about the possible themes for this assignment. After considering several options such as screen time and the number of times I went out, I finally decided to visualize my sleep duration. I chose this data because my natural sleep can last more than 12 hours, but during school days I have to wake up early with an alarm, which makes the daily contrast quite interesting to observe. I explored several ways to visualize sleep duration, such as a clock-based design or a line graph. However, I eventually decided to combine a starry sky theme with a bar chart. The starry sky perfectly fits the theme of sleep and creates a dreamy atmosphere, while the bar chart clearly shows data differences and makes the visualization easier for viewers to understand. 
+
+Through this process, I noticed that I actually slept up to 12 hours on weekends, but slept less on Saturday because of outdoor activities, and much less during weekdays. This visualization made me realize that my sleeping pattern is somewhat unhealthy, and I should manage my time better to maintain a more balanced sleep schedule. In terms of coding and visualization, although the sleep duration was successfully displayed, I felt that the project still lacked an emotional connection to myself. I realized that data alone can feel distant and mechanical. In the future, I would like to explore ways to strengthen the emotional dimension of data visualization to make data not just numbers, but something that reflects feelings and personal experiences. For example, I could assign meaningful colors to the dots in each bar to represent the quality of my sleep, not just its duration. I believe that adding this layer of emotional meaning would make the visualization much more engaging and personal.
+    </div>
+  </div>
+</main>
 
   <footer>
-    <p>© 2025 My Portfolio</p>
+    <p>© Haofei Han 2025</p>
   </footer>
 
+  <!-- p5.js Sketch -->
+<script>
+let sleepHours = [12, 5.5, 6, 6, 4.5, 7.5, 5];
+let dots = [];
 
-  <!-- p5.js SKETCH SCRIPT -->
-  <script>
-    // Your p5.js code will go here. 
-  </script>
+let colorsR = [100, 130, 160, 190, 220, 240, 255];
+let colorsG = [150, 140, 130, 120, 110, 100, 90];
+let colorsB = [255, 240, 230, 220, 210, 200, 190];
 
+function setup() {
+  const canvas = createCanvas(600, 600);
+  canvas.parent('sketch-container');
+  noStroke();
+
+  let margin = 60;
+  let gap = 25;
+  let totalGap = gap * (sleepHours.length - 1);
+  let totalWidth = width - 2 * margin - totalGap;
+  let barWidth = totalWidth / sleepHours.length;
+
+  let globalTop = 160;
+  let globalBottom = height - 80;
+
+  
+  for (let i = 0; i < sleepHours.length; i++) {
+    let count = int(map(sleepHours[i], 0, 7, 10, sleepHours[i]*20));
+    let minColHeight = 1;
+    let maxColHeight = globalBottom - globalTop;
+    let colHeight = map(sleepHours[i], 0, 10, minColHeight, maxColHeight);
+    let bottomY = globalBottom;
+    let topY = bottomY - colHeight;
+    let startX = margin + i * (barWidth + gap);
+    let endX = startX + barWidth;
+    let group = [];
+
+    for (let j = 0; j < count; j++) {
+      let xValue = random(startX, endX);
+      let yValue = random(topY, bottomY);
+      let sValue = random(2, 5);
+
+      group[j] = {
+        x: xValue,
+        y: yValue,
+        size: sValue
+      };
+    }
+    dots[i] = group;
+  }
+}
+
+function draw() {
+  background(10, 20, 50); 
+
+  let margin = 60;
+  let gap = 25;
+  let totalGap = gap * (sleepHours.length - 1);
+  let totalWidth = width - 2 * margin - totalGap;
+  let wordWidth = totalWidth / sleepHours.length;
+
+  for (let i = 0; i < dots.length; i++) {
+    let r = colorsR[i];
+    let g = colorsG[i];
+    let b = colorsB[i];
+    
+    let group = dots[i];
+    for (let j = 0; j < group.length; j++) {
+      let flicker = random(80, 255);
+      fill(r, g, b, flicker);
+      let d = group[j];
+      ellipse(d.x, d.y, d.size, d.size);
+    }
+  }
+
+  textAlign(CENTER);
+  textSize(16);
+  fill(240);
+  let days = ["Fri", "Sat", "Sun", "Mon", "Tue", "Wed", "Thu"];
+  for (let i = 0; i < days.length; i++) {
+    let dayX = margin + i * (wordWidth + gap) + wordWidth / 2;
+    text(days[i], dayX, height - 30);
+  }
+
+  textSize(20);
+  fill(255);
+  text("Sleep Time Dream Dot", width / 2, 60);
+}
+
+
+
+
+</script>
 </body>
 </html>

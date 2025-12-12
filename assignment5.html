@@ -1,61 +1,93 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <title>Assignment Title</title>
-  <link rel="stylesheet" href="style.css">
-
-  <!-- Navigation Bar -->
-  <header class="top-nav">
-    <div class="logo">HAOFEI HAN</div>
-
-    <nav class="nav-links">
-      <a href="index.html">HOME</a>
-      <a href="about.html">ABOUT ME</a>
-      <!-- <a href="#">PORTFOLIO</a> -->
-    </nav>
-  </header>
-  
-  <!-- p5.js CDN -->
+  <meta charset="UTF-8" />
+  <title>Assignment 1</title>
+  <link rel="stylesheet" href="assignment.css" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Figtree:wght@400;600&display=swap" rel="stylesheet" />
   <script src="https://cdnjs.cloudflare.com/ajax/libs/p5.js/1.6.0/p5.min.js"></script>
 </head>
-<body>
 
-  <header class="hero">
-    <h1>Assignment Title</h1>
-    <nav>
-      <a href="index.html">Home</a>
-      <a href="about.html">About Me</a>
+<body>
+  <!-- Top Navigation -->
+  <header class="top-nav">
+    <div class="logo">HAOFEI HAN</div>
+    <nav class="nav-links">
+      <a href="index.html#home">HOME</a>
+      <a href="index.html#about">ABOUT ME</a>
+      <a href="index.html#projects" class="active">PROJECTS</a>
     </nav>
   </header>
 
-  <main class="grid">
+  <main>
+  <div class="assignment-block">
+    <h1>Assignment 5</h1>
 
-    <!-- Project Description -->
-    <section class="card">
-      <h2>Project Description</h2>
-      <p>
-       Put your project reflection here. 
-      </p>
-    </section>
+    <!-- Sketch -->
+    <div id="sketch-container"></div>
 
-    <!-- p5 Sketch -->
-    <section class="card">
-      <h2>This is where your sketch will go.</h2>
-      <div id="sketch-container"></div>
-    </section>
+    <h2 class="reflection-title">Reflection</h2>
+    <div class="reflection">
+      In the research phase of this project, I examined many examples of both static and dynamic optical illusions. I discovered that even simple shapes, when combined with minimal motion, can produce surprisingly complex and diverse visual effects — such as making a flat surface appear three-dimensional or creating black dots that seem to appear and disappear in the viewer’s sight. Soon, I came across the moiré pattern and was particularly fascinated by the version created from two sets of concentric circles. I decided to use this structure for my assignment, as the overlapping of the two circular sets along the x-axis generates intriguing rotating wave patterns in the viewer’s perception.
 
-  </main>
+During the design process, I used a nested for loop to draw the two sets of concentric circles. The first set is fixed at the center of the canvas, while the second moves horizontally back and forth. The use of if/else statements allowed me to easily control the movement direction of the second set. On top of that, I integrated what I learned last week about detecting mouseX input — by mapping the mouse’s horizontal position to the movement speed of the circles. This made the overlapping moiré patterns more pronounced at different speeds and also introduced an interactive element to the project.
+
+Finally, I noticed that the resulting pattern not only created a sense of rotation but also seemed to generate new color bands where the circles overlapped. Based on this discovery, I adjusted the colors of the two sets of circles — changing the original black lines to contrasting blue and orange hues — and modified their transparency to enhance the color variation in the overlapping areas. In the final visual result, one can not only observe fan-like interference patterns but also subtle purple and green halos produced by the overlapping circles. 
+    </div>
+  </div>
+</main>
 
   <footer>
-    <p>© 2025 My Portfolio</p>
+    <p>© Haofei Han 2025</p>
   </footer>
 
+  <!-- p5.js Sketch -->
+<script>
+let moveX = 0;
+let moveDir = 1;
 
-  <!-- p5.js SKETCH SCRIPT -->
-  <script>
-    // Your p5.js code will go here. 
-  </script>
+function setup() {
+  const canvas = createCanvas(600, 600);
+  canvas.parent('sketch-container');
+  noFill();
+  strokeWeight(3);
+}
 
+function draw() {
+  background(255);
+  translate(width / 2, height / 2);
+
+  let speedCir = map(mouseX, 0, width, 0.2, 2);
+  speedCir = constrain(speedCir, 0.2, 2);
+
+  if (moveX > 20) moveDir = -1;
+  else if (moveX < -20) moveDir = 1;
+
+  moveX += moveDir * speedCir;
+
+  for (let i = 0; i < 2; i++) {
+    let xOffset = 0;
+
+    if (i == 0) {
+      xOffset = 0;
+      stroke(0, 120, 255, 200);
+    } else {
+      xOffset = moveX;
+      stroke(255, 160, 40, 200);
+    }
+
+    noFill()
+
+    for (let r = 20; r < 250; r += 10) {
+      ellipse(xOffset, 0, r * 2, r * 2);
+    }
+  }
+}
+
+
+
+</script>
 </body>
 </html>

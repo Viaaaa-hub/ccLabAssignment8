@@ -1,61 +1,154 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <title>Assignment Title</title>
-  <link rel="stylesheet" href="style.css">
-
-  <!-- Navigation Bar -->
-  <header class="top-nav">
-    <div class="logo">HAOFEI HAN</div>
-
-    <nav class="nav-links">
-      <a href="index.html">HOME</a>
-      <a href="about.html">ABOUT ME</a>
-      <!-- <a href="#">PORTFOLIO</a> -->
-    </nav>
-  </header>
-
-  <!-- p5.js CDN -->
+  <meta charset="UTF-8" />
+  <title>Assignment 1</title>
+  <link rel="stylesheet" href="assignment.css" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Figtree:wght@400;600&display=swap" rel="stylesheet" />
   <script src="https://cdnjs.cloudflare.com/ajax/libs/p5.js/1.6.0/p5.min.js"></script>
 </head>
-<body>
 
-  <header class="hero">
-    <h1>Assignment Title</h1>
-    <nav>
-      <a href="index.html">Home</a>
-      <a href="about.html">About Me</a>
+<body>
+  <!-- Top Navigation -->
+  <header class="top-nav">
+    <div class="logo">HAOFEI HAN</div>
+    <nav class="nav-links">
+      <a href="index.html#home">HOME</a>
+      <a href="index.html#about">ABOUT ME</a>
+      <a href="index.html#projects" class="active">PROJECTS</a>
     </nav>
   </header>
 
-  <main class="grid">
+  <main>
+  <div class="assignment-block">
+    <h1>Assignment 1</h1>
 
-    <!-- Project Description -->
-    <section class="card">
-      <h2>Project Description</h2>
-      <p>
-       Put your project reflection here. 
-      </p>
-    </section>
+    <!-- Sketch -->
+    <div id="sketch-container"></div>
 
-    <!-- p5 Sketch -->
-    <section class="card">
-      <h2>This is where your sketch will go.</h2>
-      <div id="sketch-container"></div>
-    </section>
+    <h2 class="reflection-title">Reflection</h2>
+    <div class="reflection">
+      1. The language my partner used to describe the image：
+The scene I want to describe is a SkyTrain station in Canada. On a sunny day, passengers take the escalator on the left to reach the platform and wait for the train. The trains are mainly blue with some purple accents. Each car has two doors, one at the front and one at the back, with windows in the middle. The cars are connected by gray sections in between.
 
-  </main>
+2. My interpretation of the image：
+The background of the scene is divided into two parts: the upper part is the sky with the sun, and the lower part is the platform. On the left side of the platform is an escalator, and at the top of the escalator there is a SkyTrain entering from right to left. The train body is blue and purple, with two doors and two windows, and the sections connecting the cars are gray.
+
+3. The depiction of the image using code:
+In my code, I used basic 2D shapes such as rect, triangle, ellipse, quad, line, to build the platform, escalator, and train. I also applied fill() and stroke() to add colors, and blendMode() to soften the clouds. For the sun, I used translate() and rotate() to repeat a triangular ray shape around a circle. I relied on push() and pop() to manage transformations without affecting other objects.
+
+4. The differences in interpretation at all stages of the assignment:
+The main difference lies in the fact that some complex shapes and visual effects cannot be represented with simple geometric primitives. For example, the 3D effect of real vehicles, changes in light and shadow, and surfaces that are not perfectly flat are difficult to recreate. The variations caused by materials, wear, and texture also cannot be fully achieved with code alone. In the future, I hope to make the visual presentation more detailed and vivid through further learning.
+
+Reflection：
+In this assignment, I created a SkyTrain station scene in P5 based on my partner’s description. Drawing on my previous coding experience, I focused on using basic shape functions such as triangle, rect, and line to depict the platform, escalator, and the train. When applying the translate and rotate functions, I started by drawing a single sunbeam, then rotated and repeated it to form a complete sun. Through the process of creating these elements, I reviewed the fundamentals of shape drawing and became more proficient in using them. Moving forward, I hope to make my code more concise and clear.
+    </div>
+  </div>
+</main>
 
   <footer>
-    <p>© 2025 My Portfolio</p>
+    <p>© Haofei Han 2025</p>
   </footer>
 
-
-  <!-- p5.js SKETCH SCRIPT -->
+  <!-- p5.js Sketch -->
   <script>
-    // Your p5.js code will go here. 
-  </script>
 
+function setup() {
+  const canvas = createCanvas(400, 400);
+  canvas.parent('sketch-container');
+
+  noStroke();
+  fill(147, 213, 220);
+  rect(0, 0, width, 260);
+
+  fill(181,170,144);
+  rect(0, 260, width, 200);
+
+  blendMode(ADD);
+  fill(255, 100, 20);
+  ellipse(80, 60, 80, 40);
+  ellipse(100, 50, 60, 40);
+  ellipse(120, 60, 70, 50);
+  ellipse(220, 100, 80, 40);
+  ellipse(240, 80, 60, 40);
+  blendMode(BLEND);
+
+  drawSkyTrain(100, 220);   
+  drawEscalatorSloped(-40, 460, 100, 170);
+  drawWall();
+  drawSun();
+}
+
+function drawSkyTrain(x, y) {
+  noStroke();
+
+  fill(176,168,189); 
+  rect(x, y, 400, 50, 50);
+
+  fill(0, 60, 150); 
+  rect(x, y + 25, 300, 25);
+
+  fill(196,203,207);
+  rect(x+250,y,20,50)
+
+  fill(251,236,222);
+  rect(x + 150, y + 10, 40, 30, 3);
+  rect(x + 80, y + 10, 40, 30, 3);
+
+  fill(80, 150, 255);
+  rect(x + 205, y + 10, 25, 40, 2);
+  rect(x + 40, y + 10, 25, 40, 2);
+}
+
+function drawEscalatorSloped() {
+  fill(192,196,195);
+  stroke(100);
+  quad(-40,460,60,290,83,290,-17,460)
+
+  stroke(90);
+  strokeWeight(5);
+  line(0, 392, 23, 392);
+  line(10, 375, 33, 375);
+  line(20, 358, 43, 358);
+  line(30, 341, 53, 341);
+  line(40, 324, 63, 324);
+  line(50, 307, 73, 307);
+  line(60, 290, 83, 290);
+
+  stroke(10);
+  strokeWeight(4);
+  line(-40, 460, 60, 290);
+  line(-17, 460, 83, 290);
+}
+
+function drawWall() {
+  fill(251,238,226);
+  noStroke();
+  triangle(20,400,85,400,85,290)
+  rect(85,290,500,500)
+}
+
+function drawSun(){
+  push();
+  translate(360, 40);
+  fill(254,215,26);
+  noStroke();
+
+  for (let i = 0; i < 8; i++) {
+    push();
+    rotate(radians(i * 45));
+    triangle(30,0,0,-12,0,12);
+    pop();
+  }
+
+  fill(255, 140, 0);
+  ellipse(0, 0, 40, 40);
+  pop();
+}
+
+
+  </script>
 </body>
 </html>

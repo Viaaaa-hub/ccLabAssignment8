@@ -114,7 +114,6 @@
     <p>© Haofei Han 2025</p>
   </footer>
 
-  <!-- ✅ ScrollSpy JS：一定要放在 body 最後 -->
   <script>
     const navLinks = document.querySelectorAll('.nav-link');
     const sections = document.querySelectorAll('section');
@@ -123,7 +122,7 @@
       let current = '';
 
       sections.forEach(section => {
-        const sectionTop = section.offsetTop - 120; // nav 高度補償
+        const sectionTop = section.offsetTop - 120; 
         if (window.scrollY >= sectionTop) {
           current = section.getAttribute('id');
         }

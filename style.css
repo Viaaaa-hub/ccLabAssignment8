@@ -133,7 +133,7 @@ body {
 
 .about-right p {
   font-family:'Figtree';
-  color: #ffffff;       /* 完全白 */
+  color: #ffffff;   
   font-size: 30px;
   text-align: right;
   line-height: 1.4;
@@ -157,8 +157,8 @@ body {
 
 .projects-grid {
   display: grid;
-  grid-template-columns: repeat(3, 1fr); /* 每行3欄 */
-  gap: 40px; /* 調整間距 */
+  grid-template-columns: repeat(3, 1fr); 
+  gap: 40px;
 }
 
 .project-card {
@@ -233,8 +233,8 @@ footer {
 }
 
 .icon {
-  width: 18px;           /* 根據你的圖片比例微調 */
+  width: 18px;
   height: auto;
-  margin-right: 8px;     /* 讓圖示和文字有間距 */
+  margin-right: 8px;    
   vertical-align: middle;
 }
